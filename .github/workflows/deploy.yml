@@ -1,0 +1,28 @@
+name: Deploy Website
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: debian-latest
+    container:
+      image: node:20
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          image: node:20
+
+      - run: pnpm install
+      - run: pnpm run build
+
+      - name: Get SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+      - name: Deploy to Server using SCO
+        run: rcp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r ./dist/* ${{secrets.SSH_USER}}@${{ secrets.SSH_HOST }}:~/node-app
+
+      - name: Restart Server
+        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ~/node-app  && pnpm install && pm2 restart all"
