@@ -1,0 +1,56 @@
+---
+// src/components/ui/Button.astro
+// Composant Bouton Réutilisable
+interface Props {
+    href?: string;
+    style?: 'primary' | 'secondary' | 'ghost';
+    class?: string;
+    // Ajout de la propriété 'type' pour la compatibilité avec les formulaires
+    type?: 'button' | 'submit' | 'reset'; 
+}
+
+const { 
+    href, 
+    style = 'primary', 
+    class: className = '',
+    type = 'button' // Défaut à 'button' si non spécifié
+} = Astro.props;
+
+// Styles de base partagés
+const baseClasses = "font-bold py-3 px-6 rounded-xl transition duration-300 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 text-center inline-block shadow-lg";
+
+// Styles spécifiques
+let styleClasses = '';
+let tag: keyof HTMLElementTagNameMap;
+
+switch (style) {
+    case 'primary':
+        styleClasses = 'bg-pink-600 text-white hover:bg-pink-700 focus:ring-pink-500/50';
+        break;
+    case 'secondary':
+        styleClasses = 'bg-purple-600 text-white hover:bg-purple-700 focus:ring-purple-500/50';
+        break;
+    case 'ghost':
+        styleClasses = 'bg-transparent border border-gray-400 text-gray-300 hover:bg-gray-800 focus:ring-gray-700/50';
+        break;
+}
+
+// Détermine l'élément HTML à utiliser: 'a' si 'href' est présent, sinon 'button'
+tag = href ? 'a' : 'button';
+
+const finalClasses = `${baseClasses} ${styleClasses} ${className}`;
+---
+
+<!-- 
+    Nous utilisons <Astro.is:inline> pour rendre l'élément de manière dynamique. 
+    Astro.is:inline est un utilitaire pratique pour gérer les tags dynamiques.
+-->
+{tag === 'a' ? (
+    <a href={href} class={finalClasses}>
+        <slot />
+    </a>
+) : (
+    <button type={type} class={finalClasses}>
+        <slot />
+    </button>
+)}

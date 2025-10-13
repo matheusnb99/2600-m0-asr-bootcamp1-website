@@ -1,0 +1,99 @@
+---
+// src/pages/dashboard.astro
+import Button from "../components/ui/Button.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const user = {
+    name: "Anya Morphée",
+    dreamsPurchased: [
+        { id: 1, title: "Sérénité Cosmique", date: "2024-10-01", status: "Terminé", slug: "serenite-cosmique" },
+        { id: 2, title: "L'Architecte Oublié", date: "2024-10-15", status: "En Cours", slug: "architecte-oublie" },
+    ],
+    notes: [
+        { id: 101, title: "Notes sur Sérénité Cosmique", content: "Les couleurs étaient incroyables, mais j'ai oublié de noter l'équation de la gravité quantique... Prochaine fois, je prépare un stylo à encre onirique.", date: "2024-10-02" },
+    ]
+};
+
+const getStatusClasses = (status: string) => {
+    switch(status) {
+        case 'Terminé':
+            return 'bg-teal-500 text-teal-900 border-teal-700';
+        case 'En Cours':
+            return 'bg-yellow-500 text-yellow-900 border-yellow-700';
+        default:
+            return 'bg-gray-500 text-gray-900 border-gray-700';
+    }
+}
+---
+
+<BaseLayout title={`Tableau de Bord de ${user.name}`}>
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <PageHeader
+            title={`Bienvenue, ${user.name}`}
+            description="Votre espace personnel pour gérer vos rêves et vos notes PensePad."
+            class="mb-12 border-b border-purple-800/50 pb-6"
+        />
+
+        <!-- Section 1: Rêves Achetés -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold text-purple-300 mb-6 flex justify-between items-center">
+                Vos Rêves Actifs
+                <Button href="/products" style="secondary" class="!py-2 !px-4 text-sm">
+                    Acheter de Nouveaux Rêves
+                </Button>
+            </h2>
+
+            <div class="space-y-4">
+                {user.dreamsPurchased.map(dream => (
+                    <div class="bg-[#1f1e3a] p-5 rounded-xl flex flex-col md:flex-row justify-between items-center border border-purple-700/50 shadow-md">
+                        <div class="flex-1 min-w-0 mb-3 md:mb-0">
+                            <h3 class="text-xl font-semibold text-white truncate">{dream.title}</h3>
+                            <p class="text-sm text-gray-400">Acheté le: {dream.date}</p>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <!-- Statut -->
+                            <span class={`px-3 py-1 text-xs font-semibold rounded-full border ${getStatusClasses(dream.status)}`}>
+                                {dream.status}
+                            </span>
+                            
+                            <!-- Bouton Voir Détails -->
+                            <Button href={`/products/${dream.slug}`} style="primary" class="!py-2 !px-4 text-sm whitespace-nowrap">
+                                Voir le Rêve
+                            </Button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <!-- Section 2: Notes Oniriques -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold text-pink-300 mb-6 flex justify-between items-center">
+                Vos Notes Oniriques
+                <Button href="#" style="ghost" class="!py-2 !px-4 text-sm">
+                    + Ajouter une Note
+                </Button>
+            </h2>
+
+            {user.notes.length > 0 ? (
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {user.notes.map(note => (
+                        <div class="bg-[#2a294b] p-6 rounded-xl shadow-lg border border-pink-700/50">
+                            <h3 class="text-xl font-semibold text-white mb-2">{note.title}</h3>
+                            <p class="text-sm text-gray-400 mb-4">Créée le: {note.date}</p>
+                            <p class="text-gray-300 line-clamp-3">{note.content}</p>
+                            <a href="#" class="text-pink-400 hover:text-pink-300 text-sm mt-3 inline-block">Lire la suite...</a>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <p class="text-gray-500 italic p-6 bg-[#2a294b] rounded-xl text-center">
+                    Aucune note trouvée. Le cerveau est-il déjà en veille ?
+                </p>
+            )}
+        </div>
+        
+    </section>
+</BaseLayout>

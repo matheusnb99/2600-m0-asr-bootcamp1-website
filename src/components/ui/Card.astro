@@ -1,0 +1,31 @@
+---
+export interface Props {
+    title: string;
+    description: string;
+    price: string;
+    link: string;
+}
+
+const { title, description, price, link } = Astro.props;
+---
+
+<article class="flex flex-col bg-[#1f1e3a] p-6 rounded-2xl shadow-xl dreamy-shadow hover:shadow-purple-500/50 transition-shadow duration-300 border border-transparent hover:border-purple-500/50">
+    
+    <!-- En-tête de la carte -->
+    <header class="mb-4">
+        <h3 class="text-2xl font-bold text-pink-400 mb-2">{title}</h3>
+        <p class="text-3xl font-extrabold text-white">{price}</p>
+    </header>
+
+    <!-- Corps de la carte -->
+    <p class="text-gray-400 flex-grow mb-6">
+        {description}
+    </p>
+
+    <!-- Pied de page avec bouton d'action -->
+    <footer class="mt-auto">
+        <a href={link} class="inline-block w-full text-center py-2 px-4 rounded-lg text-sm font-medium bg-purple-600 text-white hover:bg-purple-700 transition-colors duration-200">
+            Voir le Rêve Détaillé
+        </a>
+    </footer>
+</article>

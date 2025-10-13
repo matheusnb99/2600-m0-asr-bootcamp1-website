@@ -1,0 +1,114 @@
+---
+// src/pages/products/[slug].astro
+// Ceci est une route dynamique. Elle gérera toutes les URL comme /products/mon-super-reve.
+import Button from "../../components/ui/Button.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// Fonction requise par Astro pour les routes dynamiques
+export async function getStaticPaths() {
+  const DREAMS_MOCK_DATA = [
+    { 
+        slug: "serenite-cosmique", 
+        title: "Sérénité Cosmique", 
+        longDescription: "Plongez dans le calme absolu d'un voyage à travers les galaxies intérieures. Cette expérience immersive de 8 heures (un cycle de sommeil complet) est conçue pour procurer un repos mental sans précédent, régénérant l'esprit et l'âme. Le prix inclut un accès à notre communauté et un guide d'activation subconsciente.", 
+        price: "49€", 
+        features: ["Activation subconsciente", "Qualité HD (Rêve)", "Garantie 7 jours", "Accès à vie"]
+    },
+    { 
+        slug: "architecte-oublie", 
+        title: "L'Architecte Oublié", 
+        longDescription: "Maîtrisez l'art de bâtir des cités éphémères et d'explorer des structures impossibles directement dans votre sommeil. Ce rêve est calibré pour les créateurs exigeants et les esprits logiques cherchant à débloquer leur potentiel spatial et conceptuel.", 
+        price: "79€", 
+        features: ["Cartographie neuronale", "Contrôle lucide partiel", "Mise à jour gratuite 1.1", "Mode création illimité"]
+    },
+    { 
+        slug: "source-inspiration", 
+        title: "La Source de l'Inspiration", 
+        longDescription: "Accédez à un flux illimité d'idées créatives et novatrices, directement dans votre subconscient. Ce rêve vous met en contact avec la muse universelle, garantissant une explosion de créativité à votre réveil.", 
+        price: "99€", 
+        features: ["Déblocage créatif", "Connexion neuronale", "Vision couleur augmentée", "Session de 6 heures"]
+    },
+    { 
+        slug: "murmure-genie", 
+        title: "Le Murmure du Génie", 
+        longDescription: "Une session d'écoute passive des plus grands esprits de l'histoire pendant votre cycle REM. Apprenez sans effort les principes de la physique quantique ou de la philosophie antique par osmose subconsciente.", 
+        price: "129€", 
+        features: ["Apprentissage accéléré", "Mémoire amplifiée", "Mode 'Professeur Particulier'", "Certificat onirique"]
+    },
+    { 
+        slug: "evasion-zenithale", 
+        title: "L'Évasion Zénithale", 
+        longDescription: "Le rêve lucide garanti, contrôlé et parfaitement sécurisé. Idéal pour les débutants, cette expérience vous donne les clés pour diriger votre propre scénario de sommeil sans risque de 'choc du réveil'.", 
+        price: "55€", 
+        features: ["Contrôle total", "Sécurité certifiée", "Guide de vol inclus", "Réveil en douceur"]
+    },
+  ];
+
+  return DREAMS_MOCK_DATA.map((dream) => ({
+    params: { slug: dream.slug },
+    props: { dreamDetails: dream }, // Passe les détails du rêve directement en props
+  }));
+}
+
+// Récupère les props passées par getStaticPaths
+const { dreamDetails } = Astro.props; 
+// Le slug est toujours accessible via params, mais nous utilisons ici les props pour simplifier
+const slug = Astro.params.slug;
+
+const imagePlaceholder = `https://placehold.co/800x400/312e81/c7d2fe?text=${dreamDetails.title.toUpperCase()}`;
+
+---
+
+<BaseLayout title={dreamDetails.title}>
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+        <div class="bg-[#1f1e3a] p-8 md:p-12 rounded-2xl shadow-2xl dreamy-shadow">
+            
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-400">
+                {dreamDetails.title}
+            </h1>
+            
+            <!-- Image/Visualisation du Rêve -->
+            <img 
+                src={imagePlaceholder} 
+                alt={`Image représentative du rêve ${dreamDetails.title}`} 
+                class="w-full h-auto rounded-xl object-cover mb-8 border border-purple-700/50"
+                loading="lazy"
+            />
+            
+            <!-- Description & Prix -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <p class="text-2xl font-bold text-white mb-4 md:mb-0">
+                    Prix: <span class="text-pink-400">{dreamDetails.price}</span>
+                </p>
+                <Button href={`/checkout/${slug}`} style="primary">
+                    Acheter et Rêver Maintenant
+                </Button>
+            </div>
+
+            <!-- Détails Longs -->
+            <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+                {dreamDetails.longDescription}
+            </p>
+
+            <!-- Caractéristiques -->
+            <h2 class="text-3xl font-bold text-purple-300 mb-4">Ce que vous obtiendrez</h2>
+            <ul class="list-disc list-inside text-gray-400 space-y-2 mb-8 ml-4">
+                {dreamDetails.features.map(feature => (
+                    <li class="flex items-start">
+                         <!-- Icone d'étoile ou de rêve -->
+                        <span class="mr-3 text-pink-400">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.631-.921 1.932 0l1.246 3.834a1 1 0 00.95.691h4.032c.969 0 1.371 1.24.588 1.83l-3.266 2.373a1 1 0 00-.363 1.118l1.246 3.834c.3.921-.755 1.688-1.542 1.118l-3.266-2.373a1 1 0 00-1.175 0l-3.266 2.373c-.787.57-1.842-.197-1.542-1.118l1.246-3.834a1 1 0 00-.363-1.118L2.021 9.282c-.783-.59-.38-1.83.588-1.83h4.032a1 1 0 00.95-.691l1.246-3.834z"></path></svg>
+                        </span>
+                        {feature}
+                    </li>
+                ))}
+            </ul>
+
+            <div class="text-center mt-10">
+                <a href="/products" class="text-purple-300 hover:text-white transition-colors text-sm underline">
+                    ← Retourner au Catalogue
+                </a>
+            </div>
+        </div>
+    </section>
+</BaseLayout>

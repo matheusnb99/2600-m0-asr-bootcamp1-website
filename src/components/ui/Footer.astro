@@ -1,0 +1,23 @@
+---
+const currentYear = new Date().getFullYear();
+---
+<footer class="mt-12 py-10 border-t border-purple-900/50 bg-[#0d0c1d]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+        <div class="flex justify-center space-x-6 mb-6">
+            <a href="/about" class="hover:text-pink-400 transition-colors">Notre Vision</a>
+            <a href="/products" class="hover:text-pink-400 transition-colors">Catalogue</a>
+            <a href="/legal" class="hover:text-pink-400 transition-colors">Mentions Légales</a>
+            <a href="/privacy" class="hover:text-pink-400 transition-colors">Politique de Confidentialité</a>
+        </div>
+        
+        <!-- Logo/Nom répété -->
+        <p class="text-lg font-semibold tracking-tight mb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+            PensePad: Là où les rêves prennent note.
+        </p>
+
+        <!-- Copyright -->
+        <p class="text-sm">
+            &copy; {currentYear} PensePad, S.A.S. Tous droits de sommeil réservés.
+        </p>
+    </div>
+</footer>

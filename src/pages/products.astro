@@ -1,0 +1,60 @@
+---
+import Card from "../components/ui/Card.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const allDreams = [
+    { 
+        title: "Sérénité Cosmique", 
+        description: "Le calme absolu d'un voyage à travers les galaxies intérieures. Un repos mental sans précédent.", 
+        price: "49€", 
+        link: "/products/serenite-cosmique" 
+    },
+    { 
+        title: "L'Architecte Oublié", 
+        description: "Maîtrisez l'art de bâtir des cités éphémères dans votre sommeil. Pour les créateurs exigeants.", 
+        price: "79€", 
+        link: "/products/architecte-oublie" 
+    },
+    { 
+        title: "La Source de l'Inspiration", 
+        description: "Accédez à un flux illimité d'idées créatives et novatrices, directement dans votre subconscient.", 
+        price: "99€", 
+        link: "/products/source-inspiration" 
+    },
+    { 
+        title: "Le Murmure du Génie", 
+        description: "Une session d'écoute passive des plus grands esprits de l'histoire pendant votre cycle REM.", 
+        price: "129€", 
+        link: "/products/murmure-genie" 
+    },
+    { 
+        title: "L'Évasion Zénithale", 
+        description: "Un rêve lucide garanti, contrôlé et parfaitement sécurisé. Idéal pour les débutants.", 
+        price: "55€", 
+        link: "/products/evasion-zenithale" 
+    },
+];
+---
+
+<BaseLayout title="Catalogue des Produits">
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <PageHeader
+            title="Notre Catalogue de Rêves"
+            description="Explorez l'étendue de notre offre. Chaque rêve est une expérience unique, prête à être téléchargée dans votre subconscient."
+        />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {
+                allDreams.map((dream) => (
+                    <Card 
+                        title={dream.title} 
+                        description={dream.description} 
+                        price={dream.price} 
+                        link={dream.link} 
+                    />
+                ))
+            }
+        </div>
+    </section>
+</BaseLayout>
