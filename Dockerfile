@@ -5,15 +5,23 @@ WORKDIR /app
 # Therefore, the `-deps` steps will be skipped if only the source code changes.
 COPY package.json package-lock.json ./
 
+# install dependencies
 FROM base AS prod-deps
 RUN npm install --omit=dev
 
+# 
 FROM base AS build-deps
 RUN npm install
-
-FROM build-deps AS build
+# prisma 
+FROM build-deps AS prisma-generate
 COPY . .
+RUN npx prisma generate
+
+# build
+FROM prisma-generate AS build
 RUN npm run build
+
+# runtime image
 
 FROM base AS runtime
 COPY --from=prod-deps /app/node_modules ./node_modules
