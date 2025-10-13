@@ -44,4 +44,4 @@ jobs:
 
       - name: Restart secondary Server
         run: |
-          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no student@10.199.30.2 "cd ~/node-app && pnpm install && pm2 restart all"
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no -r ./dist/* ${{secrets.SSH_USER}}@${{ secrets.SSH_HOST2 }} "cd ~/node-app && pnpm install && pm2 restart all"
