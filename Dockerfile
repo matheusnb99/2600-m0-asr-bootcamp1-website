@@ -35,6 +35,6 @@ ENV SERVER_CERT_PATH=/etc/ssl/certs/server.crt
 
 
 ENV HOST=0.0.0.0
-ENV PORT=443
-EXPOSE 433
+ENV PORT=3443
+EXPOSE 3433
 CMD node ./dist/server/entry.mjs
