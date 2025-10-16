@@ -27,6 +27,13 @@ FROM base AS runtime
 COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 
+COPY server.crt /etc/ssl/certs/server.crt
+COPY server.key /etc/ssl/private/server.key
+
+ENV SERVER_KEY_PATH=/etc/ssl/private/server.key
+ENV SERVER_CERT_PATH=/etc/ssl/certs/server.crt
+
+
 ENV HOST=0.0.0.0
 ENV PORT=443
 EXPOSE 433
