@@ -1,49 +1,82 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+import Button from "../components/ui/Button.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+
+const featuredDreams = [
+    { 
+        title: "Sérénité Cosmique", 
+        description: "Le calme absolu d'un voyage à travers les galaxies intérieures. Un repos mental sans précédent.", 
+        price: "49€", 
+        link: "/products/serenite-cosmique" 
+    },
+    { 
+        title: "L'Architecte Oublié", 
+        description: "Maîtrisez l'art de bâtir des cités éphémères dans votre sommeil. Pour les créateurs exigeants.", 
+        price: "79€", 
+        link: "/products/architecte-oublie" 
+    },
+    { 
+        title: "La Source de l'Inspiration", 
+        description: "Accédez à un flux illimité d'idées créatives et novatrices, directement dans votre subconscient.", 
+        price: "99€", 
+        link: "/products/source-inspiration" 
+    },
+];
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+
+<BaseLayout title="Accueil">
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Fond en dégradé subtil et animation de particules (simulée) -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#0d0c1d] via-[#1a1835] to-[#0d0c1d] opacity-90"></div>
+        
+        <!-- Contenu du Héro -->
+        <div class="z-10 text-center px-4 max-w-4xl">
+            <h1 class="text-6xl sm:text-7xl font-extrabold mb-4 tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500 animate-pulse">
+                PensePad: Où les Rêves Prennent Note
+            </h1>
+            <p class="text-xl sm:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Ne laissez plus jamais l'imagination s'échapper. Nous vous vendons les graines de rêves les plus rares, prêtes à éclore dans votre esprit.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <Button href="/products" style="primary">
+                    Découvrir nos Rêves
+                </Button>
+                <Button href="/about" style="secondary">
+                    Notre Philosophie
+                </Button>
+            </div>
+        </div>
+    </section>
+		    <section class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-4 text-purple-300">Qu'est-ce qu'un Rêve PensePad ?</h2>
+            <p class="text-lg text-gray-400 max-w-3xl mx-auto mb-12">
+                C'est une structure neuronale soigneusement sélectionnée et amplifiée. Nous capturons les moments les plus purs de la créativité subconsciente pour vous les offrir sous forme de catalyseurs. Utilisez-les pour écrire, créer, ou simplement pour un sommeil d'une richesse inouïe.
+            </p>
+        </div>
+    </section>
+		    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-[#15142a]">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-pink-400">Nos Rêves les Plus Populaires</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {
+                    featuredDreams.map((dream) => (
+                       
+										<p>{dream.title}</p>
+                    ))
+                }
+            </div>
+
+            <div class="mt-12 text-center">
+                <Button href="/products" style="primary">
+                    Voir Tout le Catalogue
+                </Button>
+            </div>
+        </div>
+    </section>
+
+</BaseLayout>

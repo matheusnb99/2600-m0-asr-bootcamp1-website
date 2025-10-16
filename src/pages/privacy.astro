@@ -1,0 +1,39 @@
+
+---
+import PageHeader from "../components/ui/PageHeader.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Politique de Confidentialité PensePad">
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+
+        <PageHeader
+            title="Politique de Confidentialité Onirique"
+            description="Vos pensées sont sacrées. Nous ne collectons que ce qui est absolument nécessaire pour améliorer votre qualité de sommeil."
+            gradient="from-teal-400 to-green-500"
+        />
+
+        <div class="space-y-8 text-gray-300 leading-relaxed bg-[#1f1e3a] p-8 rounded-xl border border-teal-700/50">
+            <h2 class="text-2xl font-bold text-white border-b border-gray-600 pb-2">1. Les Données que Nous Collectons</h2>
+            <p>
+                **1.1. Données d'Éveil :** Nous collectons les informations de base (nom, email, identifiant de compte) nécessaires à la gestion des achats et des licences de CONI.
+            </p>
+            <p>
+                **1.2. Données Oniriques (Anonymisées) :** Si vous activez la fonction PensePad Note, nous enregistrons les fragments de texte que vous saisissez. Ces notes sont stockées de manière cryptée et **ne sont jamais analysées en lien avec votre identité**. Elles servent uniquement à affiner la 'Cohérence Narrative Globale' de nos produits.
+            </p>
+
+            <h2 class="text-2xl font-bold text-white border-b border-gray-600 pb-2">2. Utilisation des Données</h2>
+            <p>
+                **2.1. Amélioration des Rêves :** Les données oniriques anonymes sont agrégées pour développer des CONI de nouvelle génération (Rêves 2.0).
+            </p>
+            <p>
+                **2.2. Pas de Vente d'Âmes :** PensePad s'engage à ne jamais vendre, louer ou échanger votre profil de sommeil, vos notes, ou l'essence de votre être à des entités tierces. Votre tranquillité d'esprit (et de sommeil) est notre priorité.
+            </p>
+
+            <h2 class="text-2xl font-bold text-white border-b border-gray-600 pb-2">3. Sécurité des Données</h2>
+            <p>
+                Nous employons la **Cryogénisation des Données** pour protéger vos informations. Toutes les données sont stockées sur des serveurs qui ne sont jamais réveillés, garantissant une sécurité maximale. L'accès est limité à notre équipe d'Hypnologues Certifiés.
+            </p>
+        </div>
+    </section>
+</BaseLayout>

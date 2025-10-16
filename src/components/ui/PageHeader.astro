@@ -1,0 +1,27 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    gradient?: string; 
+    class?: string;
+}
+
+const { 
+    title, 
+    description, 
+    gradient = 'from-pink-400 to-purple-400', 
+    class: className = '' 
+} = Astro.props;
+
+const finalGradient = `bg-clip-text text-transparent bg-gradient-to-r ${gradient}`;
+---
+
+<header class={`text-center mb-12 border-b border-purple-800/50 pb-6 ${className}`}>
+  <h1 class={`text-5xl font-extrabold mb-3 text-white ${finalGradient} drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]`}>
+      {title}
+  </h1>
+
+  <p class="text-xl text-gray-400">
+      {description}
+  </p>
+</header>
